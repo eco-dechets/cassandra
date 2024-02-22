@@ -1,0 +1,185 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum MaterialState {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+enum EmployeeState {
+  ACTIVE
+  INACTIVE
+}
+
+enum MaterialNature {
+  NEW
+  OLD
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum TaskState {
+  CREATED
+  IN_PROGRESS
+  DONE
+}
+
+enum TaskType {
+  PARAMETRAGE
+  ACCES
+  REPORTING
+  OUTILS
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          UserRole  @default(USER)
+  accounts      Account[]
+}
+
+model Brand {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  materials Material[]
+}
+
+model MaterialCategory {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  materials Material[]
+}
+
+model OperatingSite {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  employees Employee[]
+}
+
+model Fonction {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  employees Employee[]
+}
+
+model Vendor {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  materials Material[]
+}
+
+model Material {
+  id              String            @id @default(cuid())
+  commandDate     String
+  commandNumber   String
+  deliveryDate    String
+  billNumber      String
+  serialNumber    String            @unique
+  amountHT        Float
+  amountTTC       Float
+  tva             Int
+  comment         String?
+  inventoryNumber String?           @unique
+  state           MaterialState     @default(AVAILABLE)
+  nature          MaterialNature    @default(NEW)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  brandId         String
+  brand           Brand             @relation(fields: [brandId], references: [id])
+  categoryId      String
+  category        MaterialCategory  @relation(fields: [categoryId], references: [id])
+  vendorId        String
+  vendor          Vendor            @relation(fields: [vendorId], references: [id])
+  history         MaterialHistory[]
+}
+
+model Employee {
+  id                String            @id @default(cuid())
+  firstName         String
+  lastName          String
+  email             String            @unique
+  phone             String            @unique
+  siteId            String
+  enteredAt         String?
+  state             EmployeeState     @default(ACTIVE)
+  licenses          Json
+  softwares         Json
+  groupCloud        Json
+  groupDistribution Json
+  site              OperatingSite     @relation(fields: [siteId], references: [id])
+  fonctionId        String
+  fonction          Fonction          @relation(fields: [fonctionId], references: [id])
+  history           MaterialHistory[]
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  TaskManagement    TaskManagement[]
+}
+
+model MaterialHistory {
+  materialId      String
+  material        Material  @relation(fields: [materialId], references: [id])
+  employeeId      String
+  employee        Employee  @relation(fields: [employeeId], references: [id])
+  affectedDate    DateTime  @default(now())
+  restitutionDate DateTime?
+
+  @@id([materialId, employeeId])
+}
+
+model TaskManagement {
+  id          String       @id @default(cuid())
+  date        String
+  dueDate     String
+  type        TaskType
+  description String
+  state       TaskState    @default(CREATED)
+  priority    TaskPriority @default(LOW)
+  from        String
+  employee    Employee     @relation(fields: [from], references: [id])
+  assignedTo  String
+  duration    Int?
+  who         String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
