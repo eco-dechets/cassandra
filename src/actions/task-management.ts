@@ -108,9 +108,6 @@ export const deleteTaskManagement = async (id: string) => {
 
         revalidatePath("/task-management");
 
-        return {
-            success: "Task deleted successfully",
-        };
     } catch (e) {
         console.log(e);
         return {
