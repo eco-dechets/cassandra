@@ -1,4 +1,5 @@
 "use client";
+import {createBrand} from "@/src/actions/brand";
 import {
     Dialog,
     DialogContent,
@@ -12,32 +13,33 @@ import AutoForm from "@/components/ui/auto-form";
 import React, {startTransition} from "react";
 import {toast} from "sonner";
 import * as z from "zod";
-import {createOperatingSite} from "@/src/actions/operating-site";
+import {createVendor} from "@/src/actions/vendor";
+import {Separator} from "@/components/ui/separator";
 
 const formSchema = z.object({
     name: z.string(),
 })
 
-export default function OperatingSite() {
+export default function Vendor() {
     return (
         <div>
-            <div className="flex items-center py-10">
-                <h1 className="text-3xl">Site d&apos;exploitation</h1>
+            <div className="flex items-center py-4 px-5">
+                <h1 className="text-3xl">Fournisseurs</h1>
                 <div className="ml-auto">
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button variant="outline">Ajouter un site d&apos;exploitation</Button>
+                            <Button variant="outline">Ajouter un fournisseur</Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-[425px]">
                             <DialogHeader>
-                                <DialogTitle>Ajouter un site d&apos;exploitation</DialogTitle>
+                                <DialogTitle>Ajouter un fournisseurs</DialogTitle>
                                 <DialogDescription>
-                                    Entrez le nom du site
+                                    Entrez le nom du fournisseur
                                 </DialogDescription>
                             </DialogHeader>
                             <AutoForm formSchema={formSchema} onSubmit={async (values) => {
                                 startTransition(() => {
-                                    createOperatingSite(values.name).then((res) => {
+                                    createVendor(values.name).then((res) => {
                                         if (res.success) {
                                             toast.success(res.success)
                                         }
@@ -57,6 +59,7 @@ export default function OperatingSite() {
 
                 </div>
             </div>
+            <Separator/>
         </div>
     );
 }

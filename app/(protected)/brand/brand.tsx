@@ -13,6 +13,7 @@ import AutoForm from "@/components/ui/auto-form";
 import React, {startTransition} from "react";
 import {toast} from "sonner";
 import * as z from "zod";
+import {Separator} from "@/components/ui/separator";
 
 const formSchema = z.object({
     name: z.string(),
@@ -21,7 +22,7 @@ const formSchema = z.object({
 export default function Brand() {
     return (
         <div>
-            <div className="flex items-center py-10">
+            <div className="flex items-center py-4 px-5">
                 <h1 className="text-3xl">Marques</h1>
                 <div className="ml-auto">
                     <Dialog>
@@ -57,6 +58,7 @@ export default function Brand() {
 
                 </div>
             </div>
+            <Separator/>
         </div>
     );
 }

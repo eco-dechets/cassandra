@@ -10,7 +10,7 @@ import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {usePathname} from "next/navigation";
 
 interface NavProps {
-  isCollapsed: boolean
+  isCollapsed?: boolean
   links: {
     title: string
     href: string
@@ -19,7 +19,7 @@ interface NavProps {
   }[]
 }
 
-export function Nav({ links, isCollapsed }: NavProps) {
+export function Nav({ links, isCollapsed = false }: NavProps) {
 
   const pathname = usePathname()
   return (

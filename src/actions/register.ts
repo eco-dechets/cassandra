@@ -3,7 +3,8 @@ import * as z from "zod";
 import {RegisterSchema} from "../schemas";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
-import {getUserByEmail} from "@/src/data/user";
+import {getUserByEmail} from "@/src/actions/user";
+import {revalidatePath} from "next/cache";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
     const payload = RegisterSchema.safeParse(values)
@@ -33,6 +34,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
             password: hashedPassword
         }
     })
+    revalidatePath("/user")
 
     return {
         success: "User created successfully",

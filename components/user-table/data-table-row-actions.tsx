@@ -1,5 +1,3 @@
-"use client"
-
 import {DotsHorizontalIcon} from "@radix-ui/react-icons"
 import {Row} from "@tanstack/react-table"
 
@@ -12,16 +10,15 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
-import {deleteTaskManagement} from "@/src/actions/task-management";
-import {useRouter} from "next/navigation";
+import {deleteBrand, updateBrand} from "@/src/actions/brand";
+import {Label} from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
 
 interface DataTableRowActionsProps<TData> {
     row: Row<TData>
 }
 
 export function DataTableRowActions<TData>({row}: DataTableRowActionsProps<TData>) {
-
-    const router = useRouter()
 
 
     return (
@@ -36,20 +33,38 @@ export function DataTableRowActions<TData>({row}: DataTableRowActionsProps<TData
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-[280px]">
-                <span className="font-medium pl-2 text-xs text-gray-600">Actions</span>
-                <DropdownMenuItem className="cursor-pointer" onClick={() => {
-                    const em = row.original as any
-                    router.push(`/task-management/edit/${em.id}`)
 
+
+                <span className="font-medium pl-2 text-xs text-gray-500">Edit</span>
+                <form  action={async (formaData) => {
+                    const id = row.getValue("id") as string
+                    const name = formaData.get("name") as string
+                    await updateBrand(id, name)
                 }}>
-                    <span className="text-indigo-600 font-medium">Edit</span>
-                </DropdownMenuItem>
+
+                    <div className="py-2 px-2">
+                        <Label htmlFor="name" className="text-right">
+                            Nom
+                        </Label>
+                        <Input id="name" name="name" defaultValue={row.getValue("name")} className="col-span-3"/>
+                    </div>
+                    <div className="p-2 ">
+
+
+                        <Button variant={"default"} className={"w-full"} type="submit">
+                            Modifier
+                        </Button>
+                    </div>
+                </form>
                 <DropdownMenuSeparator/>
+
+
+                <span className="font-medium pl-2 text-xs text-gray-600">Actions</span>
 
 
                 <form action={async () => {
                     const id = row.getValue("id") as string
-                    await deleteTaskManagement(id)
+                    await deleteBrand(id)
                 }}>
 
                     <button className={"w-full"} type="submit">

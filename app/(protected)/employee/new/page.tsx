@@ -10,8 +10,6 @@ import {
 import {useForm} from "react-hook-form"
 import {Button} from "@/components/ui/button";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {X} from "lucide-react";
-import Link from "next/link";
 import dayjs from "dayjs";
 import {useRouter} from 'next/navigation';
 import {EmployeeSchema} from "@/src/schemas";
@@ -71,10 +69,10 @@ function Page() {
     }
 
     return (
-        <div className="flex h-full flex-col pt-10">
+        <div className="flex h-full flex-col">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
-                    <div className="flex justify-between items-center p-2 pb-10">
+                    <div className="flex justify-between items-center py-4 px-5">
                         <div className={"flex items-center gap-5"}>
 
                             <span className="text-3xl">Ajouter un.e employé.e</span>
@@ -82,28 +80,27 @@ function Page() {
                         <Button //disabled={!form.formState.isValid}
                             type="submit">Créer</Button>
                     </div>
+                    <Separator/>
 
-                    <Tabs defaultValue="profile">
+                    <Tabs defaultValue="profile" className="px-5">
                         <TabsList className="grid w-60 grid-cols-3 my-3">
                             <TabsTrigger value="profile">Profil</TabsTrigger>
                             <TabsTrigger value="materiel">Materiel</TabsTrigger>
                             <TabsTrigger value="access">Accès</TabsTrigger>
                         </TabsList>
-                        <div className="mx-auto ">
 
-                            <TabsContent className="pt-2" value="profile">
-                                <Profile form={form}/>
-                            </TabsContent>
-                            <TabsContent className="pt-2" value="materiel">
-                                <Materiel form={form}/>
-                            </TabsContent>
-                            <TabsContent className="pb-5 pt-2" value="access">
-                                <div className="grid grid-cols-2 gap-6">
-                                    {/*<Formation form={form}/>*/}
-                                    <AccessGranted form={form}/>
-                                </div>
-                            </TabsContent>
-                        </div>
+                        <TabsContent className="pt-2" value="profile">
+                            <Profile form={form}/>
+                        </TabsContent>
+                        <TabsContent className="pt-2" value="materiel">
+                            <Materiel form={form}/>
+                        </TabsContent>
+                        <TabsContent className="pb-5 pt-2" value="access">
+                            <div className="grid grid-cols-2 gap-6">
+                                {/*<Formation form={form}/>*/}
+                                <AccessGranted form={form}/>
+                            </div>
+                        </TabsContent>
                     </Tabs>
 
                 </form>

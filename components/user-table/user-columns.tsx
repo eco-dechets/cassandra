@@ -9,11 +9,11 @@ import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import 'dayjs/locale/fr'
 import {DataTableColumnHeader} from "@/components/data-table-column-header";
 import {z} from "zod";
-import {TaskManagementSchema} from "@/src/schemas";
+import {RegisterSchema} from "@/src/schemas";
 dayjs.extend(LocalizedFormat)
 dayjs.locale("fr")
 
-export const taskColumns: ColumnDef<z.infer<typeof TaskManagementSchema>>[] = [
+export const userColumns: ColumnDef<z.infer<typeof RegisterSchema>>[] = [
     {
         id: "select",
         header: ({table}) => (
@@ -51,14 +51,14 @@ export const taskColumns: ColumnDef<z.infer<typeof TaskManagementSchema>>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "date",
+        accessorKey: "name",
         header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Date"/>
+            <DataTableColumnHeader column={column} title="Nom"/>
         ),
         cell: ({row}) => {
             return (
-                <div className="w-24">
-                    <div className="font-bold"> {row.getValue("date")?? "--"}</div>
+                <div className="w-36">
+                    <div className="font-bold"> {row.getValue("name")?? "--"}</div>
 
                 </div>
             )
@@ -67,62 +67,14 @@ export const taskColumns: ColumnDef<z.infer<typeof TaskManagementSchema>>[] = [
         enableHiding: false,
     },
      {
-        accessorKey: "dueDate",
+        accessorKey: "email",
         header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Date d'échéance"/>
+            <DataTableColumnHeader column={column} title="Email"/>
         ),
         cell: ({row}) => {
             return (
-                <div className="w-24">
-                    <div className="font-bold"> {row.getValue("dueDate")?? "--"}</div>
-
-                </div>
-            )
-        },
-        enableSorting: false,
-        enableHiding: false,
-    },
-    {
-        accessorKey: "type",
-        header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Type"/>
-        ),
-        cell: ({row}) => {
-            return (
-                <div className="w-24">
-                    <div className="font-bold"> {row.getValue("type")?? "--"}</div>
-
-                </div>
-            )
-        },
-        enableSorting: false,
-        enableHiding: false,
-    },
-    {
-        accessorKey: "priority",
-        header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Priorité"/>
-        ),
-        cell: ({row}) => {
-            return (
-                <div className="w-24">
-                    <div className="font-bold"> {row.getValue("priority")?? "--"}</div>
-
-                </div>
-            )
-        },
-        enableSorting: false,
-        enableHiding: false,
-    },
-    {
-        accessorKey: "state",
-        header: ({column}) => (
-            <DataTableColumnHeader column={column} title="Status"/>
-        ),
-        cell: ({row}) => {
-            return (
-                <div className="w-24">
-                    <div className="font-bold"> {row.getValue("state")?? "--"}</div>
+                <div className="w-36">
+                    <div className="font-bold"> {row.getValue("email")?? "--"}</div>
 
                 </div>
             )

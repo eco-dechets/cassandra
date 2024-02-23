@@ -1,5 +1,5 @@
 import React, {startTransition} from 'react';
-import Material from "@/app/(taxonomy)/material-category/material";
+import Material from "@/app/(protected)/material-category/material";
 import {MaterialCategoryDataTable} from "@/components/material-category-table/material-category-data-table";
 import {getMaterialCategory} from "@/src/actions/material-category";
 import {materialCategoryColumns} from "@/components/material-category-table/material-category-columns";
@@ -11,9 +11,11 @@ async function Page() {
 
 
     return (
-        <div className="max-w-7xl mx-auto">
+        <div>
             <Material/>
-            <MaterialCategoryDataTable columns={materialCategoryColumns} data={materialsCategory}/>
+            <div className="p-5">
+                <MaterialCategoryDataTable columns={materialCategoryColumns} data={materialsCategory}/>
+            </div>
 
         </div>
     );

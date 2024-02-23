@@ -70,6 +70,6 @@ export const TaskManagementSchema = z.object({
     priority: z.string(),
     from: z.string(),
     assignedTo: z.string(),
-    who: z.string().optional(),
-    duration: z.string().optional(),
+    who: z.string(),
+    duration: z.any(),
 })

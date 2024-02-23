@@ -5,6 +5,7 @@ import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {taskColumns} from "@/components/taskmanagement-table/task-columns";
 import {TaskDataTable} from "@/components/taskmanagement-table/task-data-table";
+import {Separator} from "@/components/ui/separator";
 
 function Page() {
     const [tasks, setTasks] = useState<any>([])
@@ -16,7 +17,7 @@ function Page() {
     }, []);
     return (
         <div>
-            <div className="flex items-center py-10">
+            <div className="flex items-center py-4 px-5">
                 <h1 className="text-3xl">Taches</h1>
                 <div className="ml-auto">
                     <Link href={"/task-management/new"}>
@@ -24,7 +25,10 @@ function Page() {
                     </Link>
                 </div>
             </div>
-            <TaskDataTable columns={taskColumns} data={tasks}/>
+            <Separator/>
+           <div className="p-5">
+                <TaskDataTable columns={taskColumns} data={tasks}/>
+           </div>
         </div>
     );
 }

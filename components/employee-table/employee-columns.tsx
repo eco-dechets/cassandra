@@ -143,7 +143,7 @@ export const employeeColumns: ColumnDef<z.infer<typeof EmployeeSchema>>[] = [
             const state: string = row.getValue("state")
             return (
                 <Badge variant={state == "ACTIVE" ? "success" : "destructive"}>
-                    <div className="font-bold"> {state ?? "--"}</div>
+                    <div className="font-bold text-xs"> {state ?? "--"}</div>
                 </Badge>
 
             )

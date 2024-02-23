@@ -5,6 +5,7 @@ import {EmployeeDataTable} from "@/components/employee-table/employee-data-table
 import {employeeColumns} from "@/components/employee-table/employee-columns";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
+import {Separator} from '@/components/ui/separator';
 
 function Page() {
 
@@ -20,7 +21,7 @@ function Page() {
 
     return (
         <div className="">
-            <div className="flex items-center py-10">
+            <div className="flex items-center py-4 px-5">
                 <h1 className="text-3xl">Employé.e</h1>
                 <div className="ml-auto">
                     <Link href={"/employee/new"}>
@@ -28,7 +29,10 @@ function Page() {
                     </Link>
                 </div>
             </div>
-            <EmployeeDataTable columns={employeeColumns} data={employee ?? []}/>
+            <Separator/>
+            <div className="p-5">
+                <EmployeeDataTable columns={employeeColumns} data={employee ?? []}/>
+            </div>
         </div>
     );
 }

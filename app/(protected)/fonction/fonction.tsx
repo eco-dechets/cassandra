@@ -14,31 +14,33 @@ import React, {startTransition} from "react";
 import {toast} from "sonner";
 import * as z from "zod";
 import {createVendor} from "@/src/actions/vendor";
+import {createFonction} from "@/src/actions/fonction";
+import {Separator} from "@/components/ui/separator";
 
 const formSchema = z.object({
     name: z.string(),
 })
 
-export default function Vendor() {
+export default function Fonction() {
     return (
         <div>
-            <div className="flex items-center py-10">
-                <h1 className="text-3xl">Fournisseurs</h1>
+            <div className="flex items-center py-4 px-5">
+                <h1 className="text-3xl">Fonction</h1>
                 <div className="ml-auto">
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button variant="outline">Ajouter un fournisseur</Button>
+                            <Button variant="outline">Ajouter une fonction</Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-[425px]">
                             <DialogHeader>
-                                <DialogTitle>Ajouter un fournisseurs</DialogTitle>
+                                <DialogTitle>Ajouter une fonction</DialogTitle>
                                 <DialogDescription>
-                                    Entrez le nom du fournisseur
+                                    Entrez le nom de la fonction
                                 </DialogDescription>
                             </DialogHeader>
                             <AutoForm formSchema={formSchema} onSubmit={async (values) => {
                                 startTransition(() => {
-                                    createVendor(values.name).then((res) => {
+                                    createFonction(values.name).then((res) => {
                                         if (res.success) {
                                             toast.success(res.success)
                                         }
@@ -58,6 +60,7 @@ export default function Vendor() {
 
                 </div>
             </div>
+            <Separator/>
         </div>
     );
 }

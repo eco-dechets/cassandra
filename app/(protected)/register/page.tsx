@@ -32,6 +32,7 @@ function Page() {
 
                 if (res.success) {
                     toast.success(res.success)
+                    router.push("/user")
                 }
             })
         })
@@ -40,16 +41,14 @@ function Page() {
     return (
         <div className={cn("mt-20 ")}>
             <div className="lg:p-8">
-                <div className="mx-auto flex w-1/3 flex-col justify-center space-y-6 ">
+                <div className="mx-auto flex w-1/2 flex-col justify-center space-y-6 ">
                     <Card>
                         <CardHeader>
                             <div className="flex flex-col space-y-2">
                                 <h1 className="text-2xl font-semibold tracking-tight">
-                                    Login to your account
+                                    Ajouter un utilisateur
                                 </h1>
-                                <p className="text-sm text-muted-foreground">
-                                    Keep abreast of developments in your professional world
-                                </p>
+
                             </div>
                         </CardHeader>
 
@@ -82,22 +81,14 @@ function Page() {
                                     <Button className="w-full" disabled={isPending}>
                                         {isPending ? (
                                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin"/>
-                                        ) : (<span>Creer mon compte</span>)}
+                                        ) : (<span>Ajouter</span>)}
 
                                     </Button>
                                 </div>
 
                             </AutoForm>
                         </CardContent>
-                        <CardFooter>
-                            <p className="text-gray-500 text-sm">
-                                By submitting this form, you agree to our{" "}
-                                <a href="#" className="text-primary underline">
-                                    terms and conditions
-                                </a>
-                                .
-                            </p>
-                        </CardFooter>
+
                     </Card>
                 </div>
 

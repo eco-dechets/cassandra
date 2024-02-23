@@ -1,5 +1,4 @@
 "use client";
-import {createBrand} from "@/src/actions/brand";
 import {
     Dialog,
     DialogContent,
@@ -13,33 +12,33 @@ import AutoForm from "@/components/ui/auto-form";
 import React, {startTransition} from "react";
 import {toast} from "sonner";
 import * as z from "zod";
-import {createVendor} from "@/src/actions/vendor";
-import {createFonction} from "@/src/actions/fonction";
+import {createOperatingSite} from "@/src/actions/operating-site";
+import {Separator} from "@/components/ui/separator";
 
 const formSchema = z.object({
     name: z.string(),
 })
 
-export default function Fonction() {
+export default function OperatingSite() {
     return (
         <div>
-            <div className="flex items-center py-10">
-                <h1 className="text-3xl">Fonction</h1>
+            <div className="flex items-center py-4 px-5">
+                <h1 className="text-3xl">Site d&apos;exploitation</h1>
                 <div className="ml-auto">
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button variant="outline">Ajouter une fonction</Button>
+                            <Button variant="outline">Ajouter un site d&apos;exploitation</Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-[425px]">
                             <DialogHeader>
-                                <DialogTitle>Ajouter une fonction</DialogTitle>
+                                <DialogTitle>Ajouter un site d&apos;exploitation</DialogTitle>
                                 <DialogDescription>
-                                    Entrez le nom de la fonction
+                                    Entrez le nom du site
                                 </DialogDescription>
                             </DialogHeader>
                             <AutoForm formSchema={formSchema} onSubmit={async (values) => {
                                 startTransition(() => {
-                                    createFonction(values.name).then((res) => {
+                                    createOperatingSite(values.name).then((res) => {
                                         if (res.success) {
                                             toast.success(res.success)
                                         }
@@ -59,6 +58,7 @@ export default function Fonction() {
 
                 </div>
             </div>
+            <Separator/>
         </div>
     );
 }

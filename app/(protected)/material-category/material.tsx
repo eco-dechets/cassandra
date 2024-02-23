@@ -14,6 +14,7 @@ import React, {startTransition} from "react";
 import {toast} from "sonner";
 import * as z from "zod";
 import {createMaterialCategory} from "@/src/actions/material-category";
+import {Separator} from "@/components/ui/separator";
 
 const formSchema = z.object({
     name: z.string(),
@@ -22,7 +23,7 @@ const formSchema = z.object({
 export default function Material() {
     return (
         <div>
-            <div className="flex items-center py-10">
+            <div className="flex items-center py-4 px-5">
                 <h1 className="text-3xl">Type de materiel</h1>
                 <div className="ml-auto">
                     <Dialog>
@@ -58,6 +59,7 @@ export default function Material() {
 
                 </div>
             </div>
+            <Separator/>
         </div>
     );
 }
