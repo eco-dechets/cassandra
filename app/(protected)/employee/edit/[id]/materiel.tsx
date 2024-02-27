@@ -148,8 +148,7 @@ function Materiel({form, employeeId}: { form: UseFormReturn<any>, employeeId: st
                                         variant="destructive"
                                         size={"icon"}
                                         onClick={() => {
-                                            const id = form.getValues("materiels")[index]
-                                            //remove(index)
+                                            remove(index)
                                         }}
                                     >
                                         <Trash2 className="h-4 w-4"/>

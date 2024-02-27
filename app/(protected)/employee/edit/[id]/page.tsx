@@ -102,7 +102,7 @@ function Page({params}: { params: { id: string } }) {
     }
 
     return (
-        <div className="flex h-full flex-col pt-10">
+        <div className="flex h-full flex-col pt-10 px-10">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
                     <div className="flex justify-between items-center p-2 pb-10">

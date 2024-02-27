@@ -102,7 +102,11 @@ export const getEmployeeById = async (id: string) => {
         include: {
             site: true,
             fonction: true,
-            history: true
+            history: {
+                where: {
+                    restitutionDate: null
+                }
+            }
         }
     });
 
@@ -139,6 +143,69 @@ export const updateEmployee = async (id: string, values: z.infer<typeof Employee
         });
 
         revalidatePath("/");
+
+
+        // get all materiels of the employee where restitutionDate is null
+        const attributeMateriel = await prisma.materialHistory.findMany({
+            where: {
+                employeeId: id,
+                restitutionDate: null
+            }
+        });
+
+        // compare materiels of the employee with materiels in the payload
+        const materiels = payload.data.materiels as string[];
+        const materielsToAttribute = materiels.filter((materiel) => !attributeMateriel.some((m) => m.materialId === materiel));
+
+        // attribute materiels to the employee
+        await prisma.materialHistory.createMany({
+            data: materielsToAttribute.map((materiel) => {
+                return {
+                    employeeId: id,
+                    materialId: materiel
+                }
+            })
+        });
+
+        // change state of materiels to unavailable
+        await prisma.material.updateMany({
+            where: {
+                id: {
+                    in: materielsToAttribute
+                }
+            },
+            data: {
+                state: "UNAVAILABLE"
+            }
+        });
+
+        // restitute materiels
+
+        const materielsToRestitute = attributeMateriel.filter((materiel) => !materiels.includes(materiel.materialId));
+
+        await prisma.materialHistory.updateMany({
+            where: {
+                employeeId: id,
+                materialId: {
+                    in: materielsToRestitute.map((materiel) => materiel.materialId)
+                }
+            },
+            data: {
+                restitutionDate: dayjs().toDate()
+            }
+        });
+
+        await prisma.material.updateMany({
+            where: {
+                id: {
+                    in: materielsToRestitute.map((materiel) => materiel.materialId)
+                }
+            },
+            data: {
+                state: "AVAILABLE"
+            }
+        });
+
 
         return {
             success: "Employee updated successfully",
