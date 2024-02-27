@@ -28,7 +28,7 @@ function AccessGranted({form}: { form: UseFormReturn<any> }) {
 
                 <FormField
                     control={form.control}
-                    name="accessComment"
+                    name="comment"
                     render={({field}) => (
                         <FormItem>
                             <FormLabel>Commentaire</FormLabel>

@@ -36,7 +36,8 @@ export const createEmployee = async (values: z.infer<typeof EmployeeSchema>) => 
                 groupDistribution: payload.data.groupDistribution,
                 softwares: payload.data.softwares,
                 licenses: payload.data.licences,
-                enteredAt: payload.data.enteredAt
+                enteredAt: payload.data.enteredAt,
+                comment: payload.data.comment ?? ""
             }
         });
 
@@ -132,7 +133,8 @@ export const updateEmployee = async (id: string, values: z.infer<typeof Employee
                 groupDistribution: payload.data.groupDistribution,
                 softwares: payload.data.softwares,
                 licenses: payload.data.licences,
-                enteredAt: payload.data.enteredAt
+                enteredAt: payload.data.enteredAt,
+                comment: payload.data.comment ?? ""
             }
         });
 

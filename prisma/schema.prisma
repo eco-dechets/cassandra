@@ -143,6 +143,7 @@ model Employee {
   siteId            String
   enteredAt         String?
   state             EmployeeState     @default(ACTIVE)
+  comment           String?
   licenses          Json
   softwares         Json
   groupCloud        Json

@@ -58,6 +58,7 @@ export const EmployeeSchema = z.object({
     softwares: z.array(z.any()).refine((value) => value.some((item) => item), {
         message: "You have to select at least one item.",
     }),
+    comment: z.string().optional(),
 })
 
 export const TaskManagementSchema = z.object({

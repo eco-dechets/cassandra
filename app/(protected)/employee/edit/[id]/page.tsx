@@ -67,6 +67,7 @@ function Page({params}: { params: { id: string } }) {
             groupDistribution: arrayOfStringToArrOfObject(employee?.groupDistribution),
             licences: arrayOfStringToArrOfObject(employee?.licenses),
             softwares: arrayOfStringToArrOfObject(employee?.softwares),
+            comment: employee?.comment,
         },
     })
 
