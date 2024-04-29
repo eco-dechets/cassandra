@@ -12,7 +12,7 @@ import {Icons} from "@/components/icons";
 import {ExclamationTriangleIcon} from "@radix-ui/react-icons";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {login} from "@/src/actions/login";
-import {LoginSchema} from "../../../src/schemas";
+import {LoginSchema} from "@/src/schemas";
 import {toast} from "sonner";
 
 

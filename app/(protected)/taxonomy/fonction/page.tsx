@@ -1,8 +1,9 @@
 import React from 'react';
-import Fonction from "@/app/(protected)/fonction/fonction";
+import Fonction from "@/app/(protected)/taxonomy/fonction/fonction";
 import {getFonctions} from "@/src/actions/fonction";
 import {FonctionDataTable} from "@/components/fonction-table/fonction-data-table";
 import {fonctionColumns} from "@/components/fonction-table/fonction-columns";
+import {Card} from "@/components/ui/card";
 
 
 async function Page() {
@@ -11,13 +12,13 @@ async function Page() {
 
 
     return (
-        <div>
+        <Card>
             <Fonction/>
            <div className="p-5">
                 <FonctionDataTable columns={fonctionColumns} data={fonctions}/>
            </div>
 
-        </div>
+        </Card>
     );
 }
 

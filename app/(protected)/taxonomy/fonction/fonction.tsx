@@ -60,7 +60,6 @@ export default function Fonction() {
 
                 </div>
             </div>
-            <Separator/>
         </div>
     );
 }

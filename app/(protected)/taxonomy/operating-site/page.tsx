@@ -1,8 +1,9 @@
 import React from 'react';
-import OperatingSite from "@/app/(protected)/operating-site/operating-site";
+import OperatingSite from "@/app/(protected)/taxonomy/operating-site/operating-site";
 import {getOperatingSite} from "@/src/actions/operating-site";
 import {OperatingSiteDataTable} from "@/components/operating-site-table/operating-site-data-table";
 import {operatingColumns} from "@/components/operating-site-table/operating-columns";
+import {Card} from "@/components/ui/card";
 
 
 async function Page() {
@@ -11,13 +12,13 @@ async function Page() {
 
 
     return (
-        <div >
+        <Card>
             <OperatingSite/>
             <div className="p-5">
                 <OperatingSiteDataTable columns={operatingColumns} data={operatingSites}/>
             </div>
 
-        </div>
+        </Card>
     );
 }
 

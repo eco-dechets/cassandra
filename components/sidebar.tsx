@@ -9,11 +9,10 @@ import {Button} from "@/components/ui/button";
 
 function Sidebar() {
     return (
-        <div className="h-screen border-r flex flex-col justify-between">
+        <div className="h-full border-r flex flex-col justify-between overflow-hidden">
             <div>
                 <div
                     className={cn("flex h-[52px] items-center font-bold text-xl m-0")}>
-                    {/*<span className="text-2xl">{isCollapsed ? 'Eco' : 'Cassandra'}</span>*/}
                     <Image className={"-m-5 mt-0.5"} src={"/logo.svg"} height={20} width={270} alt={"logo"}/>
                 </div>
                 <div className="py-5">

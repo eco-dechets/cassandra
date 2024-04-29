@@ -142,6 +142,7 @@ model Employee {
   phone             String            @unique
   siteId            String
   enteredAt         String?
+  dechargeUrl       String?
   state             EmployeeState     @default(ACTIVE)
   comment           String?
   licenses          Json

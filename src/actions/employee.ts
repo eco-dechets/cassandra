@@ -6,6 +6,7 @@ import {revalidatePath} from "next/cache";
 import {PrismaClientKnownRequestError} from "@prisma/client/runtime/library";
 import {getUnavailableMaterial} from "@/src/actions/material";
 import dayjs from "dayjs";
+import {put} from "@vercel/blob";
 
 export const createEmployee = async (values: z.infer<typeof EmployeeSchema>) => {
     const payload = EmployeeSchema.safeParse(values)
@@ -94,6 +95,7 @@ export const getEmployees = async () => {
     });
 }
 
+
 export const getEmployeeById = async (id: string) => {
     return prisma.employee.findUnique({
         where: {
@@ -103,13 +105,19 @@ export const getEmployeeById = async (id: string) => {
             site: true,
             fonction: true,
             history: {
+                include: {
+                    material: {
+                        include: {
+                            category: true
+                        }
+                    }
+                },
                 where: {
                     restitutionDate: null
                 }
             }
         }
     });
-
 }
 
 export const updateEmployee = async (id: string, values: z.infer<typeof EmployeeSchema>) => {
@@ -339,6 +347,44 @@ export const archiveEmployee = async (id: string) => {
         }
     } catch (e) {
         console.log(e)
+        return {
+            error: "Une erreur s'est produite"
+        }
+    }
+}
+
+export const setEmployeeDecharge = async (id: string, formData: FormData) => {
+    try {
+
+        const file = formData.get("file") as File;
+
+        const filename = id + "-" + file.name;
+
+        const blob = await put(filename, file, {
+            access: 'public',
+        });
+
+        await prisma.employee.update({
+            where: {
+                id
+            },
+            data: {
+                dechargeUrl: blob.url
+            }
+        });
+
+        revalidatePath(`/employee/edit/${id}`);
+
+        return {
+            success: "Decharge uploaded successfully",
+            blob
+        }
+
+
+    } catch (e) {
+
+        console.log(e)
+
         return {
             error: "Une erreur s'est produite"
         }

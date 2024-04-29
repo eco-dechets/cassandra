@@ -6,6 +6,7 @@ import {employeeColumns} from "@/components/employee-table/employee-columns";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {Separator} from '@/components/ui/separator';
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
 
 function Page() {
 
@@ -17,22 +18,23 @@ function Page() {
         })
     }, []);
 
-    console.log(employee)
-
     return (
-        <div className="">
-            <div className="flex items-center py-4 px-5">
-                <h1 className="text-3xl">Employé.e</h1>
-                <div className="ml-auto">
-                    <Link href={"/employee/new"}>
-                        <Button variant="outline">Ajouter un.e employé.e</Button>
-                    </Link>
-                </div>
-            </div>
-            <Separator/>
-            <div className="p-5">
-                <EmployeeDataTable columns={employeeColumns} data={employee ?? []}/>
-            </div>
+        <div className="pt-20">
+            <Card>
+                <CardHeader>
+                    <div className="flex items-center">
+                        <h1 className="text-3xl">Employé.e</h1>
+                        <div className="ml-auto">
+                            <Link href={"/employee/new"}>
+                                <Button>Ajouter un.e employé.e</Button>
+                            </Link>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <EmployeeDataTable columns={employeeColumns} data={employee ?? []}/>
+                </CardContent>
+            </Card>
         </div>
     );
 }

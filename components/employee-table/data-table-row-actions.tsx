@@ -7,18 +7,21 @@ import {Row} from "@tanstack/react-table"
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItem, DropdownMenuRadioGroup,
-    DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
+import {Dialog, DialogTrigger} from "../ui/dialog";
+import UploadDecharge from "@/components/upload-decharge";
+import {AlertDialog, AlertDialogTrigger} from "@/components/ui/alert-dialog";
 
 interface DataTableRowActionsProps<TData> {
     row: Row<TData>
 }
 
-export function DataTableRowActions<TData>({row }: DataTableRowActionsProps<TData>) {
+export function DataTableRowActions<TData>({row}: DataTableRowActionsProps<TData>) {
 
     const router = useRouter()
 
@@ -50,6 +53,14 @@ export function DataTableRowActions<TData>({row }: DataTableRowActionsProps<TDat
                 }}>
                     <span className="text-indigo-600 font-medium">Edit</span>
                 </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => {
+                    const em = row.original as any
+                    router.push(`/employee/decharge/${em.id}`)
+
+                }}>
+                    <span className="text-indigo-600 font-medium">Générer une décharge</span>
+                </DropdownMenuItem>
+
                 <DropdownMenuSeparator/>
                 <span className="font-medium pl-2 text-xs text-gray-500">Connections</span>
 

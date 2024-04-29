@@ -41,6 +41,7 @@ export const EmployeeSchema = z.object({
     enteredAt: z.any().optional(),
     fonctionId: z.string(),
     phone: z.string(),
+    decharge: z.string().optional(),
     materiels: z.array(z.string()).optional(),
     formations: z.array(z.object({
         name: z.string(),

@@ -11,6 +11,9 @@ import 'dayjs/locale/fr'
 import {DataTableColumnHeader} from "@/components/data-table-column-header";
 import * as z from "zod";
 import {EmployeeSchema} from "@/src/schemas";
+import {AlertDialog, AlertDialogTrigger} from "@/components/ui/alert-dialog";
+import {Button} from "@/components/ui/button";
+import UploadDecharge from "@/components/upload-decharge";
 
 dayjs.extend(LocalizedFormat)
 dayjs.locale("fr")
@@ -133,7 +136,7 @@ export const employeeColumns: ColumnDef<z.infer<typeof EmployeeSchema>>[] = [
         enableSorting: false,
         enableHiding: false,
     },
-     {
+    {
         accessorKey: "state",
         header: ({column}) => (
             <DataTableColumnHeader column={column} title="Statut"/>

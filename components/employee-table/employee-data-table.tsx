@@ -4,8 +4,6 @@ import * as React from "react"
 import {
     ColumnDef,
     ColumnFiltersState,
-    SortingState,
-    VisibilityState,
     flexRender,
     getCoreRowModel,
     getFacetedRowModel,
@@ -13,7 +11,9 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
+    SortingState,
     useReactTable,
+    VisibilityState,
 } from "@tanstack/react-table"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {DataTablePagination} from "@/components/data-table-pagination";
@@ -65,7 +65,7 @@ export function EmployeeDataTable<TData, TValue>({
     return (
         <div className="space-y-4">
             <ProductDataTableToolbar table={table}/>
-            <div className="rounded-md border">
+            <div>
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

@@ -1,25 +1,22 @@
 "use client"
 import React, {useEffect, useState} from 'react';
 import * as z from "zod";
-import {Separator} from "@/components/ui/separator";
 import {zodResolver} from "@hookform/resolvers/zod"
 
-import {
-    Form
-} from "@/components/ui/form"
+import {Form} from "@/components/ui/form"
 import {useForm} from "react-hook-form"
 import {Button} from "@/components/ui/button";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {X} from "lucide-react";
-import Link from "next/link";
 import dayjs from "dayjs";
 import {useRouter} from 'next/navigation';
 import {EmployeeSchema} from "@/src/schemas";
 import Profile from "./profile";
 import Materiel from "./materiel";
 import AccessGranted from "./access-granted";
-import {createEmployee, getEmployeeById, updateEmployee} from "@/src/actions/employee";
+import {getEmployeeById, updateEmployee} from "@/src/actions/employee";
 import {toast} from "sonner";
+import UploadDecharge from "@/components/upload-decharge";
+import {ChevronLeft} from "lucide-react";
+import {Badge} from "@/components/ui/badge";
 
 
 function Page({params}: { params: { id: string } }) {
@@ -48,7 +45,6 @@ function Page({params}: { params: { id: string } }) {
             return item?.materialId
         })
     }
-
 
 
     const form = useForm<z.infer<typeof EmployeeSchema>>({
@@ -87,7 +83,7 @@ function Page({params}: { params: { id: string } }) {
 
         console.log(values)
 
-        updateEmployee(params.id,values).then((res) => {
+        updateEmployee(params.id, values).then((res) => {
             if (res.success) {
                 toast.success(res.success)
                 router.push("/")
@@ -102,46 +98,35 @@ function Page({params}: { params: { id: string } }) {
     }
 
     return (
-        <div className="flex h-full flex-col pt-10 px-10">
+        <div className="flex h-full flex-col pt-10 mx-auto">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
-                    <div className="flex justify-between items-center p-2 pb-10">
-                        <div className={"flex items-center gap-5"}>
+                    <div className="flex items-center gap-4 pb-10">
 
-                            <span className="text-3xl">Modifier un.e employé.e</span>
+                        <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
+                            {employee?.firstName} {employee?.lastName}
+                        </h1>
+                        <Badge variant={employee?.state == "ACTIVE" ? "success" : "destructive"} className="ml-auto sm:ml-0">
+                            {employee?.state}
+                        </Badge>
+                        <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                            <Button type={"submit"} size="sm">Modifier</Button>
                         </div>
-                        <Button //disabled={!form.formState.isValid}
-                            type="submit">Modifier</Button>
                     </div>
 
-
-                    <Tabs defaultValue="profile">
-                        <TabsList className="grid w-60 grid-cols-3 my-3">
-                            <TabsTrigger value="profile">Profil</TabsTrigger>
-                            <TabsTrigger value="materiel">Materiel</TabsTrigger>
-                            <TabsTrigger value="access">Accès</TabsTrigger>
-                        </TabsList>
-                        <div className="mx-auto ">
-
-                            <TabsContent className="pt-2" value="profile">
-                                <Profile form={form}/>
-                            </TabsContent>
-                            <TabsContent className="pt-2" value="materiel">
-                                <Materiel form={form} employeeId={params.id}/>
-                            </TabsContent>
-                            <TabsContent className="pb-5 pt-2" value="access">
-                                <div className="grid grid-cols-2 gap-6">
-                                    {/*<Formation form={form}/>*/}
-                                    <AccessGranted form={form}/>
-                                </div>
-                            </TabsContent>
+                    <div className="grid grid-cols-2 gap-4 mb-10">
+                        <div className="flex flex-col gap-6">
+                            <Profile form={form}/>
+                            <AccessGranted form={form}/>
                         </div>
-                    </Tabs>
+                        <div className="flex flex-col gap-6">
+                            <UploadDecharge employeeId={params.id} url={employee?.dechargeUrl}/>
+                            <Materiel form={form} employeeId={params.id}/>
+                        </div>
+                    </div>
 
                 </form>
             </Form>
-
-
         </div>
 
     );
