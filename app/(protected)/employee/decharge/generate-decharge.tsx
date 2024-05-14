@@ -88,7 +88,7 @@ function GenerateDecharge({id, name}: { id: string , name: string}) {
                                                 <TableCell className="border-r">{h.material.serialNumber}</TableCell>
                                                 <TableCell className="border-r">1</TableCell>
                                                 <TableCell className="border-r"></TableCell>
-                                                <TableCell>X</TableCell>
+                                                <TableCell></TableCell>
                                             </TableRow>
                                         )
                                     })
