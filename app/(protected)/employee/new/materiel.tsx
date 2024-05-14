@@ -80,7 +80,7 @@ function Materiel({form}: { form: UseFormReturn<any> }) {
                             <div key={materiel.id} className={"py-0.5"}>
                                 <SelectItem className="cursor-pointer" value={materiel.id.toString()}>
                                     {materiel.category.name} - <Badge
-                                    variant={"outline"}>{materiel.inventoryNumber ?? materiel.serialNumber}</Badge>
+                                    variant={"outline"}>{materiel.serialNumber ?? materiel.inventoryNumber}</Badge>
                                 </SelectItem>
                             </div>
                         ))}
