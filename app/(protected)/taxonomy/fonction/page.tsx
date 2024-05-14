@@ -15,9 +15,8 @@ async function Page() {
         <Card>
             <Fonction/>
            <div className="p-5">
-                <FonctionDataTable columns={fonctionColumns} data={fonctions}/>
+               <FonctionDataTable columns={fonctionColumns} data={fonctions}/>
            </div>
-
         </Card>
     );
 }
